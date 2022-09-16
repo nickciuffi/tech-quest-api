@@ -1,15 +1,15 @@
 // Update with your config settings.
-
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
+
 module.exports = {
 
   client: 'mysql2',
   connection: {
-    database: process.env.DATABASE,
-    user: process.env.DATABASE_USERNAME,
-    password: process.env.DATABASE_PASSWORD,
+    database: 'db_tech_quest',
+    user: 'nickciuffi',
+    password: 'Niisaricris1',
   },
   pool: {
     min: 2,
