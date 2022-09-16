@@ -7,9 +7,9 @@ module.exports = {
 
   client: 'mysql2',
   connection: {
-    database: 'db_tech_quest',
-    user: 'nickciuffi',
-    password: 'Niisaricris1',
+    database: process.env.DATABASE,
+    user: process.env.DATABASE_USERNAME,
+    password: process.env.DATABASE_PASSWORD,
   },
   pool: {
     min: 2,
