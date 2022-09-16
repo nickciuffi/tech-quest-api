@@ -8,8 +8,8 @@ import express from 'express';
 import homeRoutes from './routes/HomeRoutes';
 import questionariesRoutes from './routes/QuestionariesRoutes';
 
-const whiteList = [
-  'http://localhost:3001',
+/* const whiteList = [
+  'http://localhost:3000',
 ];
 
 const corsOptions = {
@@ -21,6 +21,7 @@ const corsOptions = {
     }
   },
 };
+*/
 
 class App {
   public app: express.Application;
@@ -32,7 +33,7 @@ class App {
   }
 
   private middlewares(): void {
-    this.app.use(cors(corsOptions));
+    // this.app.use(cors(corsOptions));
     this.app.use(helmet());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
