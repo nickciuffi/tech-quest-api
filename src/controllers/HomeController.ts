@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
+import knex from 'knex';
 
 class HomeController {
   async index(req: Request, res: Response) {
-    res.json('Wellcome to my amazing API');
+    const resp = await knex('Questionaries');
+    res.json(resp);
   }
 }
 
