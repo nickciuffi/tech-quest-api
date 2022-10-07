@@ -7,13 +7,13 @@ class QuestionsController {
   public async get(req: Request, res: Response) {
     if (!isValidId(req.params.id)) return res.json('id invalid');
     const data = await model.getQuestionsById(Number(req.params.id));
-    return res.json(data.length > 0 ? data[0] : 'Questionary not found');
+    return res.json(data.length > 0 ? data[0] : 'Question not found');
   }
 
   public async getInQuestionary(req: Request, res: Response) {
     if (!isValidId(req.params.id)) return res.json('id invalid');
     const data = await model.getQuestionsByQuestionaryId(Number(req.params.id));
-    return res.json(data.length > 0 ? data : 'Questionary not found');
+    return res.json(data.length > 0 ? data : 'There are no questions in this questionary');
   }
 
   public async store(req: Request, res: Response) {

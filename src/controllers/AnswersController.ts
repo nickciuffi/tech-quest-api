@@ -8,13 +8,13 @@ class AnswersController {
     if (!isValidId(req.params.id)) return res.json('id invalid');
     const data = await model.getAnswersById(Number(req.params.id));
 
-    return res.json(data.length > 0 ? data[0] : 'Questionary not found');
+    return res.json(data.length > 0 ? data[0] : 'Answer not found');
   }
 
   public async getInQuestion(req: Request, res: Response) {
     if (!isValidId(req.params.id)) return res.json('id invalid');
     const data = await model.getAnswersByQuestionId(Number(req.params.id));
-    return res.json(data.length > 0 ? data : 'Question not found');
+    return res.json(data.length > 0 ? data : 'There are no Answers in this question');
   }
 
   public async store(req: Request, res: Response) {
