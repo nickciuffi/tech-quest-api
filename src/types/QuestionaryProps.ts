@@ -30,7 +30,7 @@ export type QuestionaryData = {
   id?: number,
   title: string,
   desc: string,
-  questions: QuestionsWithAns[];
+
 }
 
 export type AnswerToStore = {
