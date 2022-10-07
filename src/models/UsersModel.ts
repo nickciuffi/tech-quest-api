@@ -1,4 +1,4 @@
-import { hash, compare } from 'bcryptjs';
+import { hash } from 'bcryptjs';
 import db from '../knex/config/database';
 import { userData } from '../types/UserProps';
 

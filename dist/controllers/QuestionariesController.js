@@ -81,7 +81,7 @@ class QuestionariesController {
    async store(req, res) {
     const data = req.body ;
     const q1Id = await _QuestionariesModel2.default.storeQ1(data.title, data.desc);
-
+    console.log(data.questions);
     const firstQ2Id = await getFirstQuestionId(data.questions, q1Id[0]);
     const ans = data.questions.map((quest, index) => quest.answers.map((answer) => ({
       text: answer.text,
@@ -95,6 +95,18 @@ class QuestionariesController {
     });
 
     return res.json(data);
+  }
+
+   async delete(req, res) {
+    const data = await _QuestionariesModel2.default.delete(Number(req.params.id));
+    return res.json(data);
+  }
+
+   async update(req, res) {
+    const id = Number(req.params.id);
+    const data = req.body;
+    const result = await _QuestionariesModel2.default.update(id, data);
+    res.json(result);
   }
 }
 

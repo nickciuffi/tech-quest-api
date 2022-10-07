@@ -2,7 +2,7 @@ import { compare } from 'bcrypt';
 import { Request, Response } from 'express';
 import model from '../models/UsersModel';
 import { userData } from '../types/UserProps';
-import userValidation from '../utils/userValidation';
+import userValidation from '../utils/UserValidation';
 
 class Userscontroller {
   public async get(req: Request, res: Response) {

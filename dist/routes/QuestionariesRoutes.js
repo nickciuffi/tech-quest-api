@@ -6,5 +6,7 @@ const router = _express.Router.call(void 0, );
 router.get('/', _QuestionariesController2.default.index);
 router.get('/:id', _QuestionariesController2.default.get);
 router.post('/', _QuestionariesController2.default.store);
+router.delete('/:id', _QuestionariesController2.default.delete);
+router.put('/:id', _QuestionariesController2.default.update);
 
 exports. default = router;
