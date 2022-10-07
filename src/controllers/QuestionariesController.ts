@@ -81,7 +81,7 @@ class QuestionariesController {
   public async store(req: Request, res: Response) {
     const data = req.body as QuestionaryData;
     const q1Id = await model.storeQ1(data.title, data.desc);
-
+    console.log(data.questions);
     const firstQ2Id = await getFirstQuestionId(data.questions, q1Id[0]);
     const ans: AnswerToStore[][] = data.questions.map((quest, index): AnswerToStore[] => quest.answers.map((answer): AnswerToStore => ({
       text: answer.text,
@@ -95,6 +95,18 @@ class QuestionariesController {
     });
 
     return res.json(data);
+  }
+
+  public async delete(req:Request, res: Response) {
+    const data = await model.delete(Number(req.params.id));
+    return res.json(data);
+  }
+
+  public async update(req: Request, res: Response) {
+    const id = Number(req.params.id);
+    const data = req.body;
+    const result = await model.update(id, data);
+    res.json(result);
   }
 }
 

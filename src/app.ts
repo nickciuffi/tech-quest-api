@@ -6,6 +6,10 @@ import helmet from 'helmet';
 import express from 'express';
 import homeRoutes from './routes/HomeRoutes';
 import questionariesRoutes from './routes/QuestionariesRoutes';
+import questionsRoutes from './routes/QuestionsRoutes';
+import answersRoutes from './routes/AnswersRoutes';
+import autorizedEmailsRoutes from './routes/AutorizedEmailsRoutes';
+import usersRoutes from './routes/UsersRoutes';
 
 /* const whiteList = [
   'http://localhost:3000',
@@ -41,6 +45,10 @@ class App {
   private routes() {
     this.app.use('/', homeRoutes);
     this.app.use('/questionaries/', questionariesRoutes);
+    this.app.use('/questions/', questionsRoutes);
+    this.app.use('/answers/', answersRoutes);
+    this.app.use('/autorized-emails/', autorizedEmailsRoutes);
+    this.app.use('/users/', usersRoutes);
   }
 }
 

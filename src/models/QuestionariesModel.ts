@@ -53,6 +53,19 @@ class QuestionariesModel {
     })));
     return q2Id;
   }
+
+  public async delete(id: number) {
+    if (!id) return 'Questionary not found';
+    const del = await db('Questionaries').where('id', '=', id).del();
+    return del === 1 ? `Questionary ${id} was excluded` : 'Something went wrong';
+  }
+
+  public async update(id: number, data: {title: string, desc: string}) {
+    if (!id) return 'You have to send an id';
+    if (!data.desc && !data.title) return 'There is nothing to change here';
+    const result = await db('Questionaries').where('id', '=', id).update(data);
+    return result;
+  }
 }
 
 export default new QuestionariesModel();

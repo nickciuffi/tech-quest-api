@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import controller from '../controllers/QuestionariesController';
+import controller from '../controllers/AnswersController';
 
 const router = Router();
 
-router.get('/', controller.index);
+router.get('/question/:id', controller.getInQuestion);
 router.get('/:id', controller.get);
 router.post('/', controller.store);
-router.delete('/:id', controller.delete);
 router.put('/:id', controller.update);
+router.delete('/:id', controller.delete);
 
 export default router;

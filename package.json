@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@types/node": "^18.7.16",
+    "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.2",
@@ -32,6 +33,7 @@
     "helmet": "^5.1.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^2.3.0",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "validator": "^13.7.0"
   }
 }
