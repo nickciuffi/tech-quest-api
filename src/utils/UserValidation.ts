@@ -1,4 +1,4 @@
-import isEmail from 'validator/lib/isemail';
+import validator from 'validator';
 import { userData } from '../types/UserProps';
 import autorizedModel from '../models/AutorizedEmailsModel';
 
@@ -40,7 +40,7 @@ class UserValidation {
         msg: 'You didn`t send enought data',
       };
     }
-    if (!isEmail(data.email)) {
+    if (!validator.isEmail(data.email)) {
       return {
         validated: false,
         msg: 'Invalid Email',
