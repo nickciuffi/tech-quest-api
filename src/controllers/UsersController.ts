@@ -5,10 +5,6 @@ import { userData } from '../types/UserProps';
 import userValidation from '../utils/UserValidation';
 
 class Userscontroller {
-  public async get(req: Request, res: Response) {
-    return res.json(0);
-  }
-
   public async store(req: Request, res: Response) {
     const data = req.body as userData;
     const validResult = await userValidation.validateUser(data);
