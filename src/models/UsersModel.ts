@@ -20,9 +20,13 @@ class UsersModel {
   }
 
   public async verifyCredentials({ email }: userData) {
-    const data = await db('Users').select('email', 'password_hash').where('email', '=', email);
+    const data = await db('Users').select('email', 'name', 'password_hash').where('email', '=', email);
     if (data.length === 0) return 'email not found';
-    return data[0].password_hash;
+    return {
+      password: data[0].password_hash as string,
+      email: data[0].email as string,
+      name: data[0].name as string,
+    };
   }
 }
 

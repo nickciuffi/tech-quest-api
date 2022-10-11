@@ -17,9 +17,20 @@ class Userscontroller {
   public async login(req: Request, res: Response) {
     const data = req.body;
     if (!data.email || !data.password) return res.json('not enought data');
-    const passHash = await model.verifyCredentials(data);
-    compare(data.password, passHash, (err, result) => res.json(result));
-    return 0;
+    const dataVerification = await model.verifyCredentials(data);
+    if (typeof dataVerification !== 'string') {
+      compare(data.password, dataVerification.password, (err, result) => {
+        if (result) {
+          return res.json({
+            name: dataVerification.name,
+            email: dataVerification.email,
+          });
+        }
+        return res.json('Incorrect values');
+      });
+      return 0;
+    }
+    return res.json('Incorrect values');
   }
 }
 
