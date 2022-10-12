@@ -3,8 +3,8 @@ import { userData } from '../types/UserProps';
 import autorizedModel from '../models/AutorizedEmailsModel';
 
 type ValidateResultProps = {
-  validated: boolean,
-  msg: string
+  msg: string,
+  code: number
 }
 
 class UserValidation {
@@ -32,41 +32,40 @@ class UserValidation {
   }
 
   async validateUser(data: userData): Promise<ValidateResultProps> {
-    const msg = 'Everithing all right';
-    const validated = true;
+    const msg = 'Everything all right';
     if (!this.hasAllData(data)) {
       return {
-        validated: false,
         msg: 'You didn`t send enought data',
+        code: 400,
       };
     }
     if (!validator.isEmail(data.email)) {
       return {
-        validated: false,
         msg: 'Invalid Email',
+        code: 400,
       };
     }
     if (!this.correctPasswordCharacters(data)) {
       return {
-        validated: false,
-        msg: 'he password must have from 7 to 25 characters',
+        msg: 'The password must have from 7 to 25 characters',
+        code: 400,
       };
     }
     if (!this.hasOnlyTheCorrectFields(data)) {
       return {
-        validated: false,
         msg: 'You should only send: Email, name and password',
+        code: 400,
       };
     }
     if (!(await this.isEmailAutorized(data))) {
       return {
-        validated: false,
-        msg: 'This email is no authorized',
+        msg: 'This email is not authorized',
+        code: 401,
       };
     }
     return {
-      validated,
       msg,
+      code: 200,
     };
   }
 }

@@ -8,15 +8,15 @@ class Userscontroller {
   public async store(req: Request, res: Response) {
     const data = req.body as userData;
     const validResult = await userValidation.validateUser(data);
-    if (!validResult.validated) return res.json(validResult.msg);
+    if (validResult.code !== 200) return res.status(validResult.code).json(validResult.msg);
     const result = await model.storeUser(data);
 
-    return res.json(result);
+    return res.status(validResult.code).json(result);
   }
 
   public async login(req: Request, res: Response) {
     const data = req.body;
-    if (!data.email || !data.password) return res.json('not enought data');
+    if (!data.email || !data.password) return res.status(400).json('not enought data');
     const dataVerification = await model.verifyCredentials(data);
     if (typeof dataVerification !== 'string') {
       compare(data.password, dataVerification.password, (err, result) => {
@@ -26,11 +26,11 @@ class Userscontroller {
             email: dataVerification.email,
           });
         }
-        return res.json('Incorrect values');
+        return res.status(401).json('Incorrect values');
       });
       return 0;
     }
-    return res.json('Incorrect values');
+    return res.status(400).json('Incorrect values');
   }
 }
 

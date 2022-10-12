@@ -5,36 +5,48 @@ import isValidId from '../utils/isValidId';
 
 class QuestionsController {
   public async get(req: Request, res: Response) {
-    if (!isValidId(req.params.id)) return res.json('id invalid');
+    if (!isValidId(req.params.id)) return res.status(400).json('Id invalid');
     const data = await model.getQuestionsById(Number(req.params.id));
-    return res.json(data.length > 0 ? data[0] : 'Question not found');
+    return data.length > 0 ? res.status(200).json(data[0]) : res.status(400).json('Question not found');
   }
 
   public async getInQuestionary(req: Request, res: Response) {
-    if (!isValidId(req.params.id)) return res.json('id invalid');
+    if (!isValidId(req.params.id)) return res.status(400).json('Id invalid');
     const data = await model.getQuestionsByQuestionaryId(Number(req.params.id));
-    return res.json(data.length > 0 ? data : 'There are no questions in this questionary');
+    return data.length > 0 ? res.status(200).json(data) : res.status(400).json('There are no questions in this questionary');
   }
 
   public async store(req: Request, res: Response) {
     const { data, questionary_id } = req.body as QuestionsAddProps;
-    const added = await model.storeQuestions(questionary_id, data);
-    res.json(added);
+    try {
+      const added = await model.storeQuestions(questionary_id, data);
+      return res.status(200).json(added);
+    } catch (e) {
+      return res.status(400).json(e);
+    }
   }
 
   public async update(req: Request, res: Response) {
-    if (!isValidId(req.params.id)) return res.json('id invalid');
+    if (!isValidId(req.params.id)) return res.status(400).json('Id invalid');
     const id = Number(req.params.id);
     const data = req.body;
-    const resp = await model.updateQuestion(id, data);
-    return res.json(resp);
+    try {
+      const resp = await model.updateQuestion(id, data);
+      return res.status(200).json(resp);
+    } catch (e) {
+      return res.status(400).json(e);
+    }
   }
 
   public async delete(req: Request, res: Response) {
-    if (!isValidId(req.params.id)) return res.json('id invalid');
+    if (!isValidId(req.params.id)) return res.status(400).json('Id invalid');
     const id = Number(req.params.id);
-    const result = await model.deleteQuestion(id);
-    return res.json(result === 1 ? 'Deleted' : 'Something went wrong');
+    try {
+      const result = await model.deleteQuestion(id);
+      return result === 1 ? res.status(200).json('Deleted') : res.status(400).json('Something went wrong');
+    } catch (e) {
+      return res.status(400).json(e);
+    }
   }
 }
 
