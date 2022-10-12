@@ -60,7 +60,7 @@ class UserValidation {
     if (!(await this.isEmailAutorized(data))) {
       return {
         msg: 'This email is not authorized',
-        code: 401,
+        code: 400,
       };
     }
     return {

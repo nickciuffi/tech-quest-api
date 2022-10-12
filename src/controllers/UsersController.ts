@@ -26,7 +26,7 @@ class Userscontroller {
             email: dataVerification.email,
           });
         }
-        return res.status(401).json('Incorrect values');
+        return res.status(400).json('Incorrect values');
       });
       return 0;
     }
