@@ -17,6 +17,7 @@ class Userscontroller {
   public async login(req: Request, res: Response) {
     const data = req.body;
     if (!data.email || !data.password) return res.status(400).json('not enought data');
+    if (!(await userValidation.isEmailAutorized(req.body.email))) return res.status(401).json('Email unauthorized');
     const dataVerification = await model.verifyCredentials(data);
     if (typeof dataVerification !== 'string') {
       compare(data.password, dataVerification.password, (err, result) => {

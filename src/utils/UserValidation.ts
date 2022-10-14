@@ -26,8 +26,8 @@ class UserValidation {
     return isValidated;
   }
 
-  public async isEmailAutorized(data: userData): Promise<boolean> {
-    const finalData = await autorizedModel.getEmailByTxt(data.email);
+  public async isEmailAutorized(email: string): Promise<boolean> {
+    const finalData = await autorizedModel.getEmailByTxt(email);
     return finalData.length > 0;
   }
 
@@ -57,10 +57,10 @@ class UserValidation {
         code: 400,
       };
     }
-    if (!(await this.isEmailAutorized(data))) {
+    if (!(await this.isEmailAutorized(data.email))) {
       return {
         msg: 'This email is not authorized',
-        code: 400,
+        code: 401,
       };
     }
     return {
