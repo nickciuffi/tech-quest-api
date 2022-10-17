@@ -3,6 +3,6 @@ export type QuestionProps = {
 }
 
 export type QuestionsAddProps = {
-  data:QuestionProps[],
+  text: string
   questionary_id: number
 }

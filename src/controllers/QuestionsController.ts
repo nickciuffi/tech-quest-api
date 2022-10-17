@@ -17,9 +17,9 @@ class QuestionsController {
   }
 
   public async store(req: Request, res: Response) {
-    const { data, questionary_id } = req.body as QuestionsAddProps;
+    const { text, questionary_id } = req.body as QuestionsAddProps;
     try {
-      const added = await model.storeQuestions(questionary_id, data);
+      const added = await model.storeQuestions(questionary_id, text);
       return res.status(200).json(added);
     } catch (e) {
       return res.status(400).json(e);

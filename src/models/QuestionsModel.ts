@@ -23,16 +23,16 @@ class QuestionsModel {
     return data;
   }
 
-  public async storeQuestions(questionary_id: number, data: QuestionProps[]) {
-    if (data.length === 0) return 'You have to send data';
-    if (!questionary_id) return 'You have to choose a questionary';
+  public async storeQuestions(questionary_id: number, text: string) {
+    if (!text || !questionary_id) return 'You have to send data';
+
     if (!isValidId(questionary_id)) return 'id invalid';
 
     const exists = await questionaryModel.getQuestionaryById(questionary_id);
     if (!exists[0]) return 'This Questionary doesn`t exist';
 
     try {
-      const addedQuestions = data.forEach(async (quest) => db('Questions').insert({ text: quest.text, questionary_id }));
+      const addedQuestions = db('Questions').insert({ text, questionary_id });
       return addedQuestions;
     } catch (e) {
       return e.message;
