@@ -21,13 +21,13 @@ class AnswersModel {
     return data;
   }
 
-  public async storeAnswers(question_id: number, data: AnswerProps[]) {
-    if (data.length === 0) return 'You have to send data';
-    if (!question_id) return 'You have to choose a Answerary';
+  public async storeAnswers(question_id: number, text: string, is_correct: boolean) {
+    if (!text) return 'You have to send the answer';
+    if (!question_id) return 'You have to choose a question';
     if (!isValidId(question_id)) return 'id invalid';
 
     try {
-      const addedAnswers = data.forEach(async (quest) => db('Answers').insert({ text: quest.text, question_id }));
+      const addedAnswers = await db('Answers').insert({ text, question_id, is_correct });
       return addedAnswers;
     } catch (e) {
       return e.message;

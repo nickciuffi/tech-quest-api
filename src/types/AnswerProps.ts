@@ -3,6 +3,7 @@ export type AnswerProps = {
 }
 
 export type AnswersAddProps = {
-  data: AnswerProps[],
+  text: string,
+  is_correct: boolean
   question_id: number,
 }
