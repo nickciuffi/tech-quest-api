@@ -7,3 +7,9 @@ export type AnswersAddProps = {
   is_correct: boolean
   question_id: number,
 }
+export type GetAnswersProps = {
+  text: string,
+  is_correct: boolean
+  question_id: number,
+  id: number
+}
