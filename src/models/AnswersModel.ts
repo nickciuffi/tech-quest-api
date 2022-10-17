@@ -15,6 +15,7 @@ class AnswersModel {
   public async getAnswersByQuestionId(id: number) {
     const data = await db('Answers').select(
       'Answers.text',
+      'Answers.is_correct',
       'Answers.question_id',
       'Answers.id',
     ).where('Answers.question_id', '=', id);
