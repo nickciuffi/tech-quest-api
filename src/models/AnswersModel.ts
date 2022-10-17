@@ -23,6 +23,20 @@ class AnswersModel {
     return data;
   }
 
+  async canBeEditedInQuestion(ansId: number, qId: number, isCorrect): Promise<boolean> {
+    const AnswersInQuestion = await this.getAnswersByQuestionId(qId);
+    let canSetTrue = true;
+
+    AnswersInQuestion.forEach((ans) => {
+      if (ans.is_correct && ansId !== ans.id) {
+        canSetTrue = false;
+      }
+    });
+    if (isCorrect && !canSetTrue) return false;
+
+    return true;
+  }
+
   async canBeAddedInQuestion(qId: number, isCorrect: boolean): Promise<boolean> {
     const AnswersInQuestion = await this.getAnswersByQuestionId(qId);
     if (AnswersInQuestion.length >= 4) return false;
@@ -59,7 +73,10 @@ class AnswersModel {
 
   public async updateAnswer(id: number, data: AnswerProps) {
     if (!id) return 'Answer not found';
-    if (!data.text) return 'There is nothing to change here';
+    const canBeEdited = await this.canBeEditedInQuestion(id, data.question_id, data.is_correct);
+    console.log(canBeEdited);
+    if (!canBeEdited) return `Can not edit this Answer into ${data.is_correct ? 'true' : 'false'}`;
+
     const resp = await db('Answers').where('id', '=', id).update(data);
     return resp;
   }

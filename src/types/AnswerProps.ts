@@ -1,5 +1,7 @@
 export type AnswerProps = {
   text: string,
+  is_correct: boolean
+  question_id: number
 }
 
 export type AnswersAddProps = {
