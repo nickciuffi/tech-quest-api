@@ -25,6 +25,7 @@ class AnswersModel {
 
   async canBeAddedInQuestion(qId: number, isCorrect: boolean): Promise<boolean> {
     const AnswersInQuestion = await this.getAnswersByQuestionId(qId);
+    if (AnswersInQuestion.length >= 4) return false;
     let canAddTrue = true;
     let canAddFalse = true;
     AnswersInQuestion.forEach((ans) => {
@@ -37,6 +38,7 @@ class AnswersModel {
     }
     if (isCorrect && !canAddTrue) return false;
     if (!isCorrect && !canAddFalse) return false;
+
     return true;
   }
 
