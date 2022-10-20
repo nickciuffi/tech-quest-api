@@ -4,6 +4,7 @@ import controller from '../controllers/QuestionsController';
 const router = Router();
 
 router.get('/questionary/:id', controller.getInQuestionary);
+router.get('/questionary/with-ans/:id', controller.getInQuestionaryWithAnswers);
 router.get('/:id', controller.get);
 router.post('/', controller.store);
 router.put('/:id', controller.update);

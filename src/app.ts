@@ -13,6 +13,7 @@ import usersRoutes from './routes/UsersRoutes';
 
 const whiteList = [
   'http://localhost:3000',
+  'https://tech-quest-admin.nickciuffi.xyz',
 ];
 
 const corsOptions = {

@@ -1,5 +1,5 @@
 import db from '../knex/config/database';
-import { GetQuestionProps, QuestionProps } from '../types/QuestionProps';
+import { GetQuestionProps, QuestionProps, QuestsWithAns } from '../types/QuestionProps';
 import isValidId from '../utils/isValidId';
 import questionaryModel from './QuestionariesModel';
 
@@ -10,6 +10,17 @@ class QuestionsModel {
       'questionary_id',
       'id',
     ).where('id', '=', id) as GetQuestionProps[];
+    return data;
+  }
+
+  public async getQuestionsWithAnswersByQuestionaryId(id: number): Promise<QuestsWithAns[]> {
+    const data = await db('Questions').select(
+      'Questions.id as quest_id',
+      'Questions.text as quest_text',
+      'Answers.id as ans_id',
+      'Answers.text as ans_text',
+      'Answers.is_correct',
+    ).leftJoin('Answers', 'question_id', '=', 'Questions.id').where('Questions.questionary_id', '=', id);
     return data;
   }
 

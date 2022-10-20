@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import model from '../models/QuestionsModel';
 import { QuestionsAddProps } from '../types/QuestionProps';
 import isValidId from '../utils/isValidId';
+import organizeQuestsWithAns from '../utils/organizeQuestsWithAns';
 
 class QuestionsController {
   public async get(req: Request, res: Response) {
@@ -14,6 +15,13 @@ class QuestionsController {
     if (!isValidId(req.params.id)) return res.status(400).json('Id invalid');
     const data = await model.getQuestionsByQuestionaryId(Number(req.params.id));
     return data.length > 0 ? res.status(200).json(data) : res.status(400).json('There are no questions in this questionary');
+  }
+
+  public async getInQuestionaryWithAnswers(req: Request, res: Response) {
+    if (!isValidId(req.params.id)) return res.status(400).json('Id invalid');
+    const data = await model.getQuestionsWithAnswersByQuestionaryId(Number(req.params.id));
+    const organizedData = organizeQuestsWithAns(data);
+    return organizedData.length > 0 ? res.status(200).json(organizedData) : res.status(400).json('There are no questions in this questionary');
   }
 
   public async store(req: Request, res: Response) {
