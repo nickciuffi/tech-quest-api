@@ -16,3 +16,8 @@ For the hosting, I used **NGINX**, **PM2**, **GITHUB** and **DOCKER**.
 # Conclusion
 
 For me this was the hardest part of the project, considering all my difficulties in the hosting process and the big amount of bugs I had to fix in the code and in the infrastructure
+
+# Take a look
+
+Link: https://tech-quest-api.nickciuffi.xyz/
+You can add get all the questionaries in : '/questionaries'
