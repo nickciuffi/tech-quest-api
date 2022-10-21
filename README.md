@@ -1,4 +1,4 @@
-# tech-quest
+# tech-quest API
 
 This is a project to practice my **Next.js**, **Typescript** and **Node.js** abilities. <br>
 This project has three parts: <br>
