@@ -3,12 +3,24 @@ import model from '../models/QuestionariesModel';
 import {
   InitialData, QuestionaryData,
 } from '../types/QuestionaryProps';
+import questionsModel from '../models/QuestionsModel';
 
 class QuestionariesController {
   public async index(req: Request, res: Response) {
     try {
       const data = await model.getAllQuestionaries();
-      return res.status(200).json(data);
+      if (typeof data === 'string') return res.status(400).json(data);
+      // const finalData: QuestWithIsCompleteProps[] = [];
+      const finalData = data.map(async (quest) => {
+        const questData = await questionsModel.getQuestionsByQuestionaryId(quest.id);
+        return {
+          id: quest.id,
+          title: quest.title,
+          description: quest.description,
+          isComplete: questData.length === 4,
+        };
+      });
+      return res.status(200).json(await Promise.all(finalData));
     } catch (e) {
       return res.status(400).json(e);
     }

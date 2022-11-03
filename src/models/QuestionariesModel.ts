@@ -1,7 +1,15 @@
 import db from '../knex/config/database';
 
+type QuestionaryProps = {
+  id: number,
+  title: string,
+  description: string,
+  created_at: string,
+  updated_at: string
+}
+
 class QuestionariesModel {
-  public async getAllQuestionaries() {
+  public async getAllQuestionaries(): Promise<QuestionaryProps[] | string> {
     try {
       const data = await db('Questionaries');
       return data;

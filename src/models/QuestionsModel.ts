@@ -1,5 +1,7 @@
 import db from '../knex/config/database';
-import { GetQuestionProps, QuestionProps, QuestsWithAns } from '../types/QuestionProps';
+import {
+  GetQuestionProps, QuestionCompleteProps, QuestionProps, QuestsWithAns,
+} from '../types/QuestionProps';
 import isValidId from '../utils/isValidId';
 import questionaryModel from './QuestionariesModel';
 
@@ -24,7 +26,7 @@ class QuestionsModel {
     return data;
   }
 
-  public async getQuestionsByQuestionaryId(id: number) {
+  public async getQuestionsByQuestionaryId(id: number): Promise<QuestionCompleteProps[]> {
     // const data = await db.select('id', 'text').from('Questions').where('questionary_id', '=', id);
     const data = await db('Questions').select(
       'Questions.text',

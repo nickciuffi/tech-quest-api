@@ -2,6 +2,13 @@ export type QuestionProps = {
    text: string,
 }
 
+export type QuestionCompleteProps = {
+  text: string,
+  questionary_id: number,
+  id: number,
+  isComplete: boolean
+}
+
 export type QuestionsAddProps = {
   text: string
   questionary_id: number
