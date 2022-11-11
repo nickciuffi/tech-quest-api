@@ -4,20 +4,25 @@ import {
   InitialData, QuestionaryData,
 } from '../types/QuestionaryProps';
 import questionsModel from '../models/QuestionsModel';
+import areQuestionsComplete from '../utils/AreQuestionsComplete';
 
 class QuestionariesController {
   public async index(req: Request, res: Response) {
     try {
       const data = await model.getAllQuestionaries();
       if (typeof data === 'string') return res.status(400).json(data);
-      // const finalData: QuestWithIsCompleteProps[] = [];
+
       const finalData = data.map(async (quest) => {
         const questData = await questionsModel.getQuestionsByQuestionaryId(quest.id);
+        let isComplete = await areQuestionsComplete(questData);
+        if (questData.length !== 4) {
+          isComplete = false;
+        }
         return {
           id: quest.id,
           title: quest.title,
           description: quest.description,
-          isComplete: questData.length === 4,
+          isComplete,
         };
       });
       return res.status(200).json(await Promise.all(finalData));

@@ -6,7 +6,7 @@ export type QuestionCompleteProps = {
   text: string,
   questionary_id: number,
   id: number,
-  isComplete: boolean
+  isComplete?: boolean
 }
 
 export type QuestionsAddProps = {

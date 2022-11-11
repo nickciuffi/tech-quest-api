@@ -15,6 +15,12 @@ class QuestionsModel {
     return data;
   }
 
+  public async canBeAdded(qId): Promise<boolean> {
+    const data = await this.getQuestionsByQuestionaryId(qId);
+    if (data.length >= 4) return false;
+    return true;
+  }
+
   public async getQuestionsWithAnswersByQuestionaryId(id: number): Promise<QuestsWithAns[]> {
     const data = await db('Questions').select(
       'Questions.id as quest_id',
@@ -27,7 +33,6 @@ class QuestionsModel {
   }
 
   public async getQuestionsByQuestionaryId(id: number): Promise<QuestionCompleteProps[]> {
-    // const data = await db.select('id', 'text').from('Questions').where('questionary_id', '=', id);
     const data = await db('Questions').select(
       'Questions.text',
       'Questions.questionary_id',
@@ -43,7 +48,7 @@ class QuestionsModel {
 
     const exists = await questionaryModel.getQuestionaryById(questionary_id);
     if (!exists[0]) return 'This Questionary doesn`t exist';
-
+    if (!(await this.canBeAdded(questionary_id))) return 'You can`t add more than 4 questions';
     try {
       const addedQuestions = db('Questions').insert({ text, questionary_id });
       return addedQuestions;
